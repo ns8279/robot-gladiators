@@ -35,10 +35,17 @@ var fightOrSkip = function() {
 
 var fight = function(enemy) {
 
-    while (playerInfo.health > 0 && enemy.health > 0) 
-    {
-      if (fightOrSkip()) {
-        break;
+  // Keep a track of who goes first
+    var isPlayerTurn = true;
+  // Randomly generate turn order
+      if (Math.random > 0.5) {
+        isPlayerTurn = false;
+      }
+
+    while (playerInfo.health > 0 && enemy.health > 0) {
+      if (isPlayerTurn){
+             if (fightOrSkip()) {
+             break;
       }
     
       // remove enemy's health by subtracting the amount set in the playerAttack variable
@@ -78,7 +85,9 @@ var fight = function(enemy) {
         window.alert(playerInfo.name + ' still has ' + playerInfo.health + ' health left.');
       }
     }
-  }
+    isPlayerTurn = !isPlayerTurn;
+    }
+  };
 
   
 
@@ -157,23 +166,22 @@ var fight = function(enemy) {
 // Shop Function
     var shop = function () {
       //ask the player what they would like to shop for
-      var shopOptionPrompt = window.prompt("Would you like to refil your Health, Upgrade your Attack, or Leave the Store? Please enter one: 'REFILL', 'UPGRADE' or 'LEAVE' to make a choice");
-
+      var shopOptionPrompt = window.prompt("Would you like to refil your Health, Upgrade your Attack, or Leave the Store? Please enter one: '1', '2' or '3' to make a choice");
+      shopOptionPrompt = parseInt(shopOptionPrompt);
       //Using Switch Statements
         switch(shopOptionPrompt) {
 
-        case "REFILL": //new case
-        case "refill" :
+      
+        case 1 :
           playerInfo.refillHealth();
         break;
 
-        case "UPGRADE" :  //newcase
-        case "upgrade" :
+        
+        case 2 :
             playerInfo.upgradeAttack();
           break;
-
-          case "LEAVE": //newcase
-          case "leave":
+  
+          case 3:
             window.alert("LEaving the store.");
           break;
 
